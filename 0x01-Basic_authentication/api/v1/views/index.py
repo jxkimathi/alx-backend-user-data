@@ -17,6 +17,11 @@ def status() -> str:
 def unauthorized() -> str:
     """Return abort(401)"""
     abort(401)
+    
+@app_views.route('/api/v1/forbidden/', methods=['GET'])
+def forbidden() -> str:
+    """Return abort(401)"""
+    abort(403)
 
 @app_views.route('/stats/', strict_slashes=False)
 def stats() -> str:
