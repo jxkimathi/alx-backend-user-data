@@ -41,7 +41,8 @@ class DB:
         for key, value in kwargs.items():
             if key not in User.__dict__:
                 raise InvalidRequestError
-            for user in users:
-                if getattr(user, key) == value:
-                    return user
-                raise NoResultFound
+            users = users.filter(getattr(User, key) == value)
+        try:
+            return users.one()
+        except NoResultFound:
+            raise NoResultFound
