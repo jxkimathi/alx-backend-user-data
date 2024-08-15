@@ -50,6 +50,16 @@ class Auth:
         except NoResultFound:
             return None
         return user
+    
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+        """Retrieves a user based on a given session ID."""
+        if session_id is None:
+            return None
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
+        except NoResultFound:
+            return None
 
     def destroy_session(self, user_id: int) -> None:
         """Destroys a session associated with a given user."""
