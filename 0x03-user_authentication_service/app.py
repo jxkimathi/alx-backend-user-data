@@ -8,12 +8,13 @@ AUTH = Auth()
 
 
 @app.route('/', methods=['GET'])
-def json_payload():
+def index():
     """Basic route"""
     return jsonify({"message": "Bienvenue"})
 
+
 @app.route('/users', methods=['POST'])
-def register_user():
+def users():
     """Registers a new user"""
     email = request.form.get('email')
     password = request.form.get('password')
