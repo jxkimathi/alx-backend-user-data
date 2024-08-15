@@ -93,12 +93,3 @@ class Auth:
             hashed_password=new_password_hash,
             reset_token=None,
         )
-
-email = 'bob@bob.com'
-password = 'MyPwdOfBob'
-auth = Auth()
-
-auth.register_user(email, password)
-
-print(auth.create_session(email))
-print(auth.create_session("unknown@email.com"))
