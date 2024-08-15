@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def json_payload():
+    """Basic route"""
     return jsonify({"message": "Bienvenue"})
 
 if __name__ == "__main__":
