@@ -46,16 +46,18 @@ class Auth:
             return False
         return False
 
-    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
+    def create_session(self, email: str) -> str:
         """Retrieves a user based on a given session ID."""
         user = None
-        if session_id is None:
-            return None
         try:
-            user = self._db.find_user_by(session_id=session_id)
+            user = self._db.find_user_by(email=email)
         except NoResultFound:
             return None
-        return user
+        if user is None:
+            return None
+        session_id = _generate_uuid()
+        self._db.update_user(user.id, session_id=session_id)
+        return session_id
 
     def destroy_session(self, user_id: int) -> None:
         """Destroys a session associated with a given user."""
@@ -91,3 +93,12 @@ class Auth:
             hashed_password=new_password_hash,
             reset_token=None,
         )
+
+email = 'bob@bob.com'
+password = 'MyPwdOfBob'
+auth = Auth()
+
+auth.register_user(email, password)
+
+print(auth.create_session(email))
+print(auth.create_session("unknown@email.com"))
