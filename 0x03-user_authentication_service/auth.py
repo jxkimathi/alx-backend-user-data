@@ -13,6 +13,7 @@ def _hash_password(password: str) -> bytes:
     """Hashes a password"""
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
+
 def _generate_uuid() -> str:
     """Generates a UUID"""
     return str(uuid4())
@@ -24,7 +25,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(self, email: str, password:str) -> User:
+    def register_user(self, email: str, password: str) -> User:
         """Registers a new user"""
         try:
             self._db.find_user_by(email=email)
@@ -80,7 +81,8 @@ class Auth:
         self._db.update_user(user.id, reset_token=reset_token)
         return reset_token
 
-    def update_password(self, reset_token: str, password: str) -> None:
+    def update_password(self, reset_token: str, 
+                        password: str) -> None:
         """Updates a user's password given the user's reset token."""
         user = None
         try:
